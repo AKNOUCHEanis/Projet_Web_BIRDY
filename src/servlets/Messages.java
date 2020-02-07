@@ -1,4 +1,4 @@
-package servlets.message;
+package servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MessageM
+ * Servlet implementation class Messages
  */
-@WebServlet("/MessageM")
-public class MessageM extends HttpServlet {
+@WebServlet("/Messages")
+public class Messages extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MessageM() {
+    public Messages() {
         super();
         // TODO Auto-generated constructor stub
     }
