@@ -30,7 +30,7 @@ public class Authentification extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 * effectue le LogOut d'un utilisateur
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String hash=request.getParameter("Cle");
 		Calendar date=(Calendar)request.getAttribute("Date");

@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.Connection;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,17 +17,18 @@ public class Authentification {
 		Boolean b1,b2;
 		tools.Cle cle=new tools.Cle();
 		
-		if(!tools.Verification.verifierNomUtilisateur(nomUtilisateur))  //la methode renvoie vrai si le nomUtilisateur est BON
+		if(!tools.User.verifierNomUtilisateur(nomUtilisateur))  //la methode renvoie vrai si le nomUtilisateur est BON
 		{
 			return tools.ErrorJSON.serviceRefused("Service LogIn", 1);
 		}
-		if(!tools.Verification.verifierMotDePasse(motDePasse)) // la methode renvoie vrai si le motDePasse est BON
+		if(!tools.User.verifierMotDePasse(motDePasse)) // la methode renvoie vrai si le motDePasse est BON
 		{
 			return tools.ErrorJSON.serviceRefused("Service LogIn", 1);
 		}
 		
 		cle=tools.Securite.genererCle(nomUtilisateur,motDePasse);
-		json=bd.Connexion.connect(nomUtilisateur,motDePasse,cle);
+		Connection c=bd.DataBase.getMySQLConnection();
+		json=tools.User.connect(nomUtilisateur,motDePasse,cle,c);
 		
 		return json;
 		
@@ -36,7 +39,8 @@ public class Authentification {
 	 * @return : un objet JSON qui donne le resultat du service
 	 */
 	public static JSONObject logOut(tools.Cle cle) {
-		JSONObject json=bd.Connexion.desconnect(cle);
+		Connection c=bd.DataBase.getMySQLConnection();
+		JSONObject json=tools.User.desconnect(cle,c);
 		return json;
 	}
 }

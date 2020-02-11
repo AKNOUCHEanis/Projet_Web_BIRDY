@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.Connection;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,11 +17,11 @@ public class Messages {
 	public static JSONObject ajouter(String message, Cle cle) {
 		
 		JSONObject json=new JSONObject();
-		json=bd.Connexion.verifierConnexion(cle);
+		json=tools.Connexion.verifierConnexion(cle);
 		try {
 			if((json.getString("OutPut")).compareTo("OK")==0)
-			{
-				json=bd.Traitement.ajouterMessage(message,cle);
+			{	Connection c=bd.DataBase.getMySQLConnection();
+				json=tools.Message.ajouterMessage(message,cle,c);
 				if((json.getString("OutPut")).compareTo("OK")==0)
 				{
 					return json; // service accepted
