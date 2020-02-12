@@ -36,4 +36,37 @@ public class Messages {
 				
 	}
 
+	public static JSONObject getListMessages(String nomUtilisateur, Cle cle) {
+		
+		JSONObject json=new JSONObject();
+		json=tools.Connexion.verifierConnexion(cle);
+		try {
+			if((json.getString("OutPut")).compareTo("OK")==0)
+			{
+				Connection c=bd.DataBase.getMySQLConnection();
+				json=tools.Message.getListMessages(nomUtilisateur,cle,c);
+			}
+		}catch(JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return json;
+	}
+
+	public static JSONObject Supprimer(String idMessage, Cle cle) {
+		JSONObject json=new JSONObject();
+		json=tools.Connexion.verifierConnexion(cle);
+		try {
+			if((json.getString("OutPut")).compareTo("OK")==0)
+			{
+				Connection c=bd.DataBase.getMySQLConnection();
+				json=tools.Message.supprimer(idMessage,cle,c);
+			}
+		}catch(JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return json;
+	}
+
 }

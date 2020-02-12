@@ -28,9 +28,18 @@ public class Messages extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * retourne une liste de messages
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String cleHash=request.getParameter("Cle");
+		String nomUtilisateur=request.getParameter("NomUtilisateur");
+		Calendar date=(Calendar)request.getAttribute("Date");
+		tools.Cle cle=new tools.Cle(cleHash,date);
 		
+		JSONObject json=services.Messages.getListMessages(nomUtilisateur,cle);
+		
+		Writer writer=response.getWriter();
+		writer.append(json.toString());
 	}
 
 	/**
@@ -49,8 +58,19 @@ public class Messages extends HttpServlet {
 		writer.append(json.toString());
 	}
 	
+	/**
+	 *pour supprimer un message
+	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String idMessage=request.getParameter("IdMessage");
+		String cleHash=request.getParameter("Cle");
+		Calendar date=(Calendar)request.getAttribute("Date");
+		tools.Cle cle=new tools.Cle(cleHash,date);
 		
+		JSONObject json=services.Messages.Supprimer(idMessage,cle);
+		
+		Writer writer=response.getWriter();
+		writer.append(json.toString());
 	}
 	
 

@@ -10,5 +10,15 @@ public class Message {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public static JSONObject getListMessages(String nomUtilisateur, Cle cle, Connection c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static JSONObject supprimer(String idMessage, Cle cle, Connection c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
