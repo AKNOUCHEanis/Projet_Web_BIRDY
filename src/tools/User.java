@@ -1,6 +1,8 @@
 package tools;
 
+import java.beans.Statement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 import org.json.JSONObject;
 
@@ -26,7 +28,7 @@ public class User {
 		return false;
 	}
 
-	public static JSONObject connect(String nomUtilisateur, String motDePasse, Cle cle, Connection c) {
+	public static JSONObject connect(String nomUtilisateur, String motDePasse, Cle cle,Connection c) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,7 +58,7 @@ public class User {
 	 * @param c
 	 */
 	public static void insertUser (String login,String password,String nom,String prenom,Connection c) {
-		Statement st=c.createStatement();
+		Statement st=(Statement) c.createStatement();
 		ResultSet rs=st.executeUpdate("INSERT INTO User ...");	
 	}
 	

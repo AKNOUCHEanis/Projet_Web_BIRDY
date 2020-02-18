@@ -20,5 +20,10 @@ public class Message {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public static JSONObject modifier(String idMessage, String message, Cle cle, Connection c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

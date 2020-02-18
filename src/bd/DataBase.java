@@ -1,14 +1,19 @@
 package bd;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Calendar;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.json.JSONObject;
 
-public class Database{
+public class DataBase{
 	private DataSource dataSource;
 	
-	public Database(String jndiname) throws SQLException {
+	public DataBase(String jndiname) throws SQLException {
 		try {
 			dataSource=(DataSource) new InitialContext().lookup("java:comp/env/"+jndiname) ;
 		}

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import tools.Cle;
+
 /**
  * Servlet implementation class Messages
  */
@@ -67,10 +69,24 @@ public class Messages extends HttpServlet {
 		Calendar date=(Calendar)request.getAttribute("Date");
 		tools.Cle cle=new tools.Cle(cleHash,date);
 		
-		JSONObject json=services.Messages.Supprimer(idMessage,cle);
+		JSONObject json=services.Messages.supprimer(idMessage,cle);
 		
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
+	}
+	
+	protected void doPut(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		String idMessage=request.getParameter("IdMessage");
+		String message=request.getParameter("Message");
+		String cleHash=request.getParameter("cle");
+		Calendar date=(Calendar)request.getAttribute("Date");
+		tools.Cle cle=new tools.Cle(cleHash,date);
+		
+		JSONObject json=services.Messages.modifier(idMessage,message,cle);
+		
+		Writer writer=response.getWriter();
+		writer.append(json.toString());
+		
 	}
 	
 
