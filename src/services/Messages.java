@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.client.MongoDatabase;
+
 import tools.Cle;
 
 public class Messages {
@@ -15,14 +17,14 @@ public class Messages {
 	 * @param cle     : cle pour obtenir l'utilisateur et voir si la durée de sa connexion est écoulée
 	 * @return		 
 	 */
-	public static JSONObject ajouter(String message, Cle cle) {
+	public static JSONObject ajouter(String message,String nomUtilisateur, Cle cle) {
 		
 		JSONObject json=new JSONObject();
 		json=tools.Connexion.verifierConnexion(cle);
 		try {
 			if((json.getString("OutPut")).compareTo("OK")==0)
-			{	Connection c=bd.DataBase.getMySQLConnection();
-				json=tools.Message.ajouterMessage(message,cle,c);
+			{	MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
+				json=tools.Message.ajouterMessage(message,nomUtilisateur,cle,mongoDb);
 				if((json.getString("OutPut")).compareTo("OK")==0)
 				{
 					return json; // service accepted

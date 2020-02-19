@@ -13,11 +13,12 @@ import com.mongodb.client.MongoClient;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 // class en charge de la connexion aux base de données
-public class Database {
+public class DataBase {
 	
 	private DataSource dataSource;
-	private static Database database = null;
-	public Database(String ressource_name) throws SQLException{
+	private static DataBase database = null;
+	
+	public DataBase(String ressource_name) throws SQLException{
 		try {
 			// construire l'objet dataSource à partir du fichier de context
 			dataSource = (DataSource) new InitialContext().lookup("java:comp/env/"+ressource_name);
@@ -32,7 +33,7 @@ public class Database {
 	
 	public static Connection getMySQLConnection() throws SQLException {
 		// si on n'utilise pas le pooling 
-		if(!DBStatic.pooling) {
+		if(!BdStatic.mysql_pooling) {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
@@ -40,7 +41,7 @@ public class Database {
 				e.printStackTrace();
 			}
 			// on créer donc une nouvelle connexion
-			return DriverManager.getConnection("jdbc:mysql://"+DBStatic.mysql_host+"/"+DBStatic.mysql_db, DBStatic.mysql_user, DBStatic.mysql_password);
+			return DriverManager.getConnection("jdbc:mysql://"+BdStatic.mysql_host+"/"+BdStatic.mysql_db, BdStatic.mysql_username, BdStatic.mysql_password);
 			/* on notera toutefois que le port est nécéssaire si la bd n'est pas interfacer au port par défaut.
 			 *  Ainsi jdbc:mysql://"+DBStatic.mysql_host+":"+DBStatic.mysql_port+"/"+DBStatic.mysql_bd
 			 */
@@ -52,7 +53,7 @@ public class Database {
 				/* on creer l'objet Database en indiquant le nom de la 
 				 * ressource dans le fichier de context
 				 */
-				database = new Database("jdbc/db");
+				database = new DataBase("jdbc/db");
 			}
 			// on retourne la connexion du pooling
 			return database.getConnection();
@@ -60,7 +61,7 @@ public class Database {
 	}
 	public static MongoDatabase getMongoDBConnection()  {
 		MongoClient mongo = MongoClients.create(BdStatic.mongo_host);
-		MongoDatabase db=mongo.getDatabase(BdStatic.mongo_bd);
+		MongoDatabase db=mongo.getDatabase(BdStatic.mongo_db);
 		return db;
 	}
 

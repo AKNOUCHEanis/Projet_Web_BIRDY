@@ -50,11 +50,12 @@ public class Messages extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message=request.getParameter("Message");
+		String nomUtilisateur=request.getParameter("NomUtilisateur");
 		String cleHash=request.getParameter("Cle");
 		Calendar date=(Calendar)request.getAttribute("Date");
 		tools.Cle cle=new tools.Cle(cleHash,date);
 		
-		JSONObject json=services.Messages.ajouter(message,cle);
+		JSONObject json=services.Messages.ajouter(message,nomUtilisateur,cle);
 		
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
@@ -75,6 +76,9 @@ public class Messages extends HttpServlet {
 		writer.append(json.toString());
 	}
 	
+	/**
+	 *pour modifier un message
+	 */
 	protected void doPut(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
 		String idMessage=request.getParameter("IdMessage");
 		String message=request.getParameter("Message");
