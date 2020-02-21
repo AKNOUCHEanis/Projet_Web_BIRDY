@@ -35,8 +35,7 @@ public class Messages extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cleHash=request.getParameter("Cle");
 		String nomUtilisateur=request.getParameter("NomUtilisateur");
-		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(cleHash,date);
+		tools.Cle cle=new tools.Cle(cleHash);
 		
 		JSONObject json=services.Messages.getListMessages(nomUtilisateur,cle);
 		
@@ -52,8 +51,9 @@ public class Messages extends HttpServlet {
 		String message=request.getParameter("Message");
 		String nomUtilisateur=request.getParameter("NomUtilisateur");
 		String cleHash=request.getParameter("Cle");
-		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(cleHash,date);
+		
+		tools.Cle cle=new tools.Cle();
+		cle.setCle(cleHash);
 		
 		JSONObject json=services.Messages.ajouter(message,nomUtilisateur,cle);
 		
@@ -67,8 +67,8 @@ public class Messages extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String idMessage=request.getParameter("IdMessage");
 		String cleHash=request.getParameter("Cle");
-		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(cleHash,date);
+		tools.Cle cle=new tools.Cle();
+		cle.setCle(cleHash);
 		
 		JSONObject json=services.Messages.supprimer(idMessage,cle);
 		
@@ -83,8 +83,9 @@ public class Messages extends HttpServlet {
 		String idMessage=request.getParameter("IdMessage");
 		String message=request.getParameter("Message");
 		String cleHash=request.getParameter("cle");
-		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(cleHash,date);
+		
+		tools.Cle cle=new tools.Cle();
+		cle.setCle(cleHash);
 		
 		JSONObject json=services.Messages.modifier(idMessage,message,cle);
 		

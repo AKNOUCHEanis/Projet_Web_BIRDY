@@ -34,7 +34,7 @@ public class Authentification extends HttpServlet {
 		
 		String hash=request.getParameter("Cle");
 		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(hash,date);
+		tools.Cle cle=new tools.Cle(hash);
 		
 		JSONObject json=services.Authentification.logOut(cle);
 		

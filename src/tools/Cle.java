@@ -1,23 +1,29 @@
 package tools;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class Cle {
 	private String cleHash;
-	private Calendar date;
+	private Date date;
 	
 	/**
 	 * @param cleHash : chaine de caractere (Hashcode)
 	 * @param date : date qui indique la fin de validité de la clé
 	 */
-	public Cle(String cleHash,Calendar date)
+	public Cle(String nomUtilisateur)
 	{
-		this.cleHash=cleHash;
-		this.date=date;
+		this.cleHash=hash(nomUtilisateur);
+		this.date=new Date(new Date().getTime());
 	}
 	
 	public Cle() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String hash(String nom)
+	{
+		return null;
 	}
 
 	/**
@@ -29,17 +35,19 @@ public class Cle {
 	}
 	
 	/**
-	 * Ajoute à la date une durée d'un jour
+	 * Ajoute à la date une durée d'1 heure
 	 */
+
 	public void setDateAdd()
 	{
-		date.add(Calendar.DAY_OF_MONTH, 1);
 		
+		Date hour= new Date(3600*1000);
+		this.date=new Date (date.getTime()+hour.getTime());
 	}
 	/**
 	 * @param date
 	 */
-	public void setDate(Calendar date)
+	public void setDate(Date date)
 	{
 		this.date=date;
 	}
@@ -55,7 +63,7 @@ public class Cle {
 	/**
 	 * @return la date de fin de validité de la clé
 	 */
-	public Calendar getDate()
+	public Date getDate()
 	{
 		return date;
 	}
