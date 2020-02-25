@@ -28,4 +28,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>sqlDB.sql</name>
+			<type>1</type>
+			<location>/users/nfs/Etu9/3801659/L3/3I017/hacene_anis.sql</location>
+		</link>
+	</linkedResources>
 </projectDescription>
