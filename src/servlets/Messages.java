@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import tools.Cle;
@@ -39,6 +40,7 @@ public class Messages extends HttpServlet {
 		
 		JSONObject json=services.Messages.getListMessages(nomUtilisateur,cle);
 		
+		response.setContentType("application/json");
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
 	}
@@ -56,7 +58,7 @@ public class Messages extends HttpServlet {
 		cle.setCle(cleHash);
 		
 		JSONObject json=services.Messages.ajouter(message,nomUtilisateur,cle);
-		
+	
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
 	}

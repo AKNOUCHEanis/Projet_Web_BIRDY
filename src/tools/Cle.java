@@ -10,7 +10,7 @@ public class Cle {
 	
 	/**
 	 * @param cleHash : chaine de caractere (Hashcode)
-	 * @param date : date qui indique la fin de validité de la clé
+	 * @param date : indique la date de l'action la plus recente du client
 	 */
 	public Cle(String nomUtilisateur)
 	{
