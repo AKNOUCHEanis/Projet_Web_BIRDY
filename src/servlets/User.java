@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tools.Connection;
+import tools.Date;
+import tools.String;
+
 /**
  * Servlet implementation class User
  */
@@ -34,8 +38,28 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String username= request.getParameter("username");
+		String password=request.getParameter("password");
+		String nom=request.getParameter("nom");
+		String prenom=request.getParameter("prenom");
+		String email=request.getParameter("email");
+		Date dateNaiss=request.getParameter("dateNaissance");
+		
+		JSONObject json=services.User.createUser(username,password,nom,prenom,email,dateNaiss);
+		
+		Writer writer=response.getWriter();
+		writer.append(json.toString());
+	}
+	
+	protected void doDelete (HttpServletRequest request ,HttpServletResponse response) throws ServletException, IOException {
+		String username= request.getParameter("username");
+		String password=request.getParameter("password");
+		
+		JSONObject json=services.User.deleteUser(username,password);
+		
+		Writer writer=response.getWriter();
+		writer.append(json.toString());
 	}
 
 }

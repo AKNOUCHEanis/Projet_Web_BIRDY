@@ -5,9 +5,12 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
+import tools.Date;
+import tools.String;
+
 public class User {
 
-	public static JSONObject createUser (String login,String password,String nom,String prenom) {
+	public static JSONObject createUser (String login,String password,String nom,String prenom,String email,Date dateNaiss) {
 		Connection c = null;
 		try {
 			c=bd.DataBase.getMySQLConnection();
@@ -18,7 +21,7 @@ public class User {
 			if (tools.User.userExist(login,c)) {
 				return tools.ErrorJSON.serviceRefused("Service User:",1);
 			}
-			tools.User.insertUser(login,password,nom,prenom,prenom, null, c);
+			tools.User.insertUser(login,password,nom,prenom,email,dateNaiss,c);
 			return tools.ErrorJSON.serviceAccepted();
 		}
 		catch (SQLException e) {

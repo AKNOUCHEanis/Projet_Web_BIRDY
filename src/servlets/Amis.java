@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 /**
  * Servlet implementation class Amis
  */
@@ -35,7 +37,24 @@ public class Amis extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String user=request.getParameter("user");
+		String userToAdd=request.getParameter("userToAdd");
+		
+		JSONObject json=services.Amis.addFriend(user,userToAdd);
+		
+		Writer writer= response.getWriter();
+		writer.append(json.toString());
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String user=request.getParameter("user");
+		String userToRemove=request.getParameter("userToRemove");
+		
+		JSONObject json=services.Amis.removeFriend(user,userToRemove);
+		
+		Writer writer= response.getWriter();
+		writer.append(json.toString());
 	}
 
 }
