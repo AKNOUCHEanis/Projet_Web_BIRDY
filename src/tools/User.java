@@ -2,31 +2,21 @@ package tools;
 
 import java.beans.Statement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.json.JSONObject;
 
 import services.String;
 
 public class User {
-
+	
 	/**
 	 * @param nomUtilisateur
 	 * @return : retourne True si le le nom d'utilisateur respecte le format
 	 */
-	public static boolean verifierNomUtilisateur(String nomUtilisateur) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param motDePasse
-	 * @return : retourne True si le mot de passe respecte le format
-	 */
-	public static boolean verifierMotDePasse(String motDePasse) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	public static JSONObject connect(String nomUtilisateur, String motDePasse, Cle cle,Connection c) {
 		// TODO Auto-generated method stub
@@ -42,10 +32,14 @@ public class User {
 	 * @param login
 	 * @param c
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static boolean userExist (String login,Connection c) {
-		Statement st=c.createStatement();
-		ResultSet rs=st.executeQuerry("SELECT * FROM User WHERE login==");
+	public static boolean userExist (String login,Connection c) throws SQLException {
+		
+		String sql = "SELECT * FROM User WHERE username=?";
+		PreparedStatement preparedStatement =c.prepareStatement(sql);
+		preparedStatement.setString(1, login);
+		ResultSet rs=preparedStatement.executeQuery();
 		if (rs.next()) return true;
 		return false;
 	}
@@ -58,8 +52,12 @@ public class User {
 	 * @param c
 	 */
 	public static void insertUser (String login,String password,String nom,String prenom,Connection c) {
-		Statement st=(Statement) c.createStatement();
-		ResultSet rs=st.executeUpdate("INSERT INTO User ...");	
+		
+		String sql = "INSERT INTO User VALUES (?,?,?,?,?)";
+		PreparedStatement preparedStatement =c.prepareStatement(sql);
+		preparedStatement.setString(1, user);
+		preparedStatement.setString(2, userToAdd);
+		preparedStatement.executeUpdate();
 	}
 	
 	/**
