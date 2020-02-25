@@ -2,6 +2,7 @@ package tools;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class Cle {
 	private String cleHash;
@@ -9,7 +10,7 @@ public class Cle {
 	
 	/**
 	 * @param cleHash : chaine de caractere (Hashcode)
-	 * @param date : date qui indique la fin de validité de la clé
+	 * @param date : indique la date de l'action la plus recente du client
 	 */
 	public Cle(String nomUtilisateur)
 	{
@@ -21,11 +22,22 @@ public class Cle {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String hash(String nom)
+	public String hash(String nomUtilisateur)
 	{
-		return null;
+		int x=nomUtilisateur.hashCode();
+		String y=Integer.toString(x);
+		int taille=y.length();
+		char hash[]=new char[32];
+		Random r=new Random();
+		int i=0;
+		for(i=0;i<taille;i++) {
+			hash[i]=y.charAt(i);
+		}
+		for(i=taille;i<32;i++) {
+			hash[i]=(char)(r.nextInt(26)+'A');
+		}
+		return hash.toString();
 	}
-
 	/**
 	 * @param cle : chaine de caractere (HashCode)
 	 */
@@ -47,9 +59,9 @@ public class Cle {
 	/**
 	 * @param date
 	 */
-	public void setDate(Date date)
+	public void MAJ_Date()
 	{
-		this.date=date;
+		this.date=new Date(new Date().getTime());
 	}
 	
 	/**
@@ -61,7 +73,7 @@ public class Cle {
 	}
 	
 	/**
-	 * @return la date de fin de validité de la clé
+	 * @return la date de l'action la plus recente de l'utilisateur
 	 */
 	public Date getDate()
 	{

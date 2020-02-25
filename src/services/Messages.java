@@ -20,9 +20,9 @@ public class Messages {
 	public static JSONObject ajouter(String message,String nomUtilisateur, Cle cle) {
 		
 		JSONObject json=new JSONObject();
-		json=tools.Connexion.verifierConnexion(cle);
+		Boolean b=tools.Connexion.verifierConnexion(cle);
 		try {
-			if((json.getString("OutPut")).compareTo("OK")==0)
+			if(b)
 			{	MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
 				json=tools.Message.ajouterMessage(message,nomUtilisateur,cle,mongoDb);
 				if((json.getString("OutPut")).compareTo("OK")==0)
@@ -42,53 +42,51 @@ public class Messages {
 	public static JSONObject getListMessages(String nomUtilisateur, Cle cle) {
 		
 		JSONObject json=new JSONObject();
-		json=tools.Connexion.verifierConnexion(cle);
+		Boolean b=tools.Connexion.verifierConnexion(cle);
 		
-		try {
-			if((json.getString("OutPut")).compareTo("OK")==0)
+		
+			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
 				json=tools.Message.getListMessages(nomUtilisateur,cle,mongoDb);
+			}else {
+				json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
 			}
-		}catch(JSONException e)
-		{
-			e.printStackTrace();
-		}
+		
 		
 		return json;
 	}
 
 	public static JSONObject supprimer(String idMessage, Cle cle) {
 		JSONObject json=new JSONObject();
-		json=tools.Connexion.verifierConnexion(cle);
+		Boolean b=tools.Connexion.verifierConnexion(cle);
 		
-		try {
-			if((json.getString("OutPut")).compareTo("OK")==0)
+		
+			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
 				json=tools.Message.supprimer(idMessage,cle,mongoDb);
 			}
-		}catch(JSONException e)
-		{
-			e.printStackTrace();
-		}
+			else {
+				json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
+			}
+		
 		
 		return json;
 	}
 
 	public static JSONObject modifier(String idMessage, String message, Cle cle) {
 		JSONObject json=new JSONObject();
-		json=tools.Connexion.verifierConnexion(cle);
+	    Boolean b=tools.Connexion.verifierConnexion(cle);
 		
-		try {
-			if((json.getString("OutPut")).compareTo("OK")==0)
+		
+			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
 				json=tools.Message.modifier(idMessage,message,cle,mongoDb);
 			}
-		}catch(JSONException e)
-		{
-			e.printStackTrace();
+		else {
+			json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
 		}
 		
 		return json;
