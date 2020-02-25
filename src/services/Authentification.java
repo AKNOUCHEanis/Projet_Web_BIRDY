@@ -18,8 +18,7 @@ public class Authentification {
 	 */
 	public static JSONObject logIn(String nomUtilisateur, String motDePasse){
 		JSONObject json=new JSONObject();
-		Boolean b1,b2;
-		Connection c;
+		Connection c=null;
 		try {
 			c = bd.DataBase.getMySQLConnection();
 			if(nomUtilisateur!=null && motDePasse!=null)  //la methode renvoie vrai si le nomUtilisateur est BON
@@ -30,10 +29,9 @@ public class Authentification {
 			if (tools.User.userExist(nomUtilisateur, c))
 			{			
 				tools.Cle cle=new tools.Cle(nomUtilisateur);
-			
-				tools.User.connect(nomUtilisateur,motDePasse,cle,c);
-				
+				json=tools.User.connect(nomUtilisateur,motDePasse,cle,c);
 				c.close();
+				
 			
 			}
 			else {

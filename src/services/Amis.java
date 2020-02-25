@@ -1,38 +1,63 @@
 package services;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.json.JSONObject;
+
 public class Amis{
 
 	public static JSONObject addFriend (String user, String UserToAdd) {
+		Connection c = null;
 		try {
-			Connection c=Database.getMySQLConnection();
+			c=bd.DataBase.getMySQLConnection();
 			if (user==null || UserToAdd==null) {
-				return tools.ErrorJSON.serviceRefused("champ(s) invalide(s)",1);
+				return tools.ErrorJSON.serviceRefused("Service Amis:",1);
 			}
 			if (!tools.User.userExist(UserToAdd,c)) {
-				return tools.ErrorJSON.serviceRefused("utilisateur inexistant",1);
+				return tools.ErrorJSON.serviceRefused("Service Amis:",1);
 			}
-			tools.Amis.insertF(user,UserToAdd,c);
+			tools.AmiTools.insertF(user,UserToAdd,c);
 			return tools.ErrorJSON.serviceAccepted();
 		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return tools.ErrorJSON.serviceRefused("Service Amis:", 1000);
+		}
 		finally {
-			c.close();
+			try {
+				c.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return tools.ErrorJSON.serviceRefused("Service Amis:", 1000);
+			}
 		}
 	}
 	
 	public static JSONObject removeFriend (String user, String UserToDelete) {
+		Connection c=null;
 		try {
-			Connection c=Database.getMySQLConnection();
+			c=bd.DataBase.getMySQLConnection();
 			if (user==null || UserToDelete==null) {
 				return tools.ErrorJSON.serviceRefused("champ(s) invalide(s)",1);
 			}
-			if (!tools.User.userExist(UserToAdd,c)) {
+			if (!tools.User.userExist(UserToDelete,c)) {
 				return tools.ErrorJSON.serviceRefused("utilisateur inexistant",1);
 			}
-			tools.Amis.removeF(user,UserToDelete,c);
+			tools.AmiTools.removeF(user,UserToDelete,c);
 			return tools.ErrorJSON.serviceAccepted();
 		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return tools.ErrorJSON.serviceRefused("Service Amis:", 1000);
+		}
 		finally {
-			c.close();
+			try {
+				c.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return tools.ErrorJSON.serviceRefused("Service Amis:", 1000);
+			}
 		}
 	}
 }
