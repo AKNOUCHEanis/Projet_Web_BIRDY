@@ -21,7 +21,7 @@ public class Authentification {
 		Connection c=null;
 		try {
 			c = bd.DataBase.getMySQLConnection();
-			if(nomUtilisateur!=null && motDePasse!=null)  //la methode renvoie vrai si le nomUtilisateur est BON
+			if(nomUtilisateur==null && motDePasse==null)
 			{
 				return tools.ErrorJSON.serviceRefused("Service LogIn", 1);
 			}
@@ -31,8 +31,6 @@ public class Authentification {
 				tools.Cle cle=new tools.Cle(nomUtilisateur);
 				json=tools.User.connect(nomUtilisateur,motDePasse,cle,c);
 				c.close();
-				
-			
 			}
 			else {
 				json=tools.ErrorJSON.serviceRefused("Service Login:", 1);

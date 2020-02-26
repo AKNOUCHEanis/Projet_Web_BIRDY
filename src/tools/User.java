@@ -36,7 +36,7 @@ public class User {
 	
 
 	public static JSONObject desconnect(Cle cle,Connection c) throws SQLException {
-		String sql = "DELETE FROM Compte WHERE h_cle=?";
+		String sql = "DELETE FROM Session WHERE h_cle=?";
 		PreparedStatement preparedStatement =c.prepareStatement(sql);
 		preparedStatement.setString(1, cle.getCle());
 		preparedStatement.executeUpdate();
@@ -97,15 +97,20 @@ public class User {
 		
 		String sql1 = "DELETE FROM User WHERE username=?";
 		String sql2 = "DELETE FROM Compte WHERE username=?";
+		String sql3 = "DELETE FROM Session WHERE username=?";
 		
 		PreparedStatement preparedStatement1 =c.prepareStatement(sql1);
 		preparedStatement1.setString(1, login);
 		
 		PreparedStatement preparedStatement2 =c.prepareStatement(sql2);
 		preparedStatement2.setString(1, login);
+		
+		PreparedStatement preparedStatement3 =c.prepareStatement(sql3);
+		preparedStatement3.setString(1, login);
 
-		preparedStatement1.executeUpdate();
 		preparedStatement2.executeUpdate();	
+		preparedStatement3.executeUpdate();
+		preparedStatement1.executeUpdate();
 	}
 	
 

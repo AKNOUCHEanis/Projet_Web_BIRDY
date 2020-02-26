@@ -1,12 +1,12 @@
 package services;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import tools.Date;
-import tools.String;
+
 
 public class User {
 
