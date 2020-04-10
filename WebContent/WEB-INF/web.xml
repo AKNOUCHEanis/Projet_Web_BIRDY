@@ -6,10 +6,41 @@
 		<servlet-name>Message</servlet-name> 
 		<servlet-class>servlets.Messages</servlet-class> 
 	</servlet>
-		 
+	
+	<servlet>
+		<servlet-name>Amis</servlet-name>
+		<servlet-class>servelets.Amis</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>Authentification</servlet-name>
+		<servlet-class>servlets.Authentification</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>User</servlet-name>
+		<servlet-class>servlets.User</servlet-class>
+	</servlet>
+	
 	<servlet-mapping> 
 		<servlet-name>Message</servlet-name> 
 		<url-pattern>/Message</url-pattern> 
-	</servlet-mapping> 
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Amis</servlet-name>
+		<url-pattern>/Amis</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Authentification</servlet-name>
+		<url-pattern>/Authentification</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>User</servlet-name>
+		<url-pattern>/User</url-pattern>
+	</servlet-mapping>
+	
  
 </web-app>
