@@ -8,7 +8,7 @@ public class BdStatic {
 
 	//info statique sur la bd
 	public final static boolean mysql_pooling=false;
-	public final static String  mysql_host="localhost";
+	public final static String  mysql_host="localhost:3306";
 	public final static String  mysql_db="hacene_anis";
 	public final static String  mysql_username="root";
 	public final static String  mysql_password="root";

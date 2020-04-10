@@ -21,7 +21,7 @@ public class Authentification {
 		Connection c=null;
 		try {
 			c = bd.DataBase.getMySQLConnection();
-			if(nomUtilisateur==null && motDePasse==null)
+			if(nomUtilisateur==null || motDePasse==null)
 			{
 				return tools.ErrorJSON.serviceRefused("Service LogIn", 1);
 			}
@@ -45,10 +45,10 @@ public class Authentification {
 	}
 	
 	/**
-	 * @param cle : cl� de l'utilisateur � deconnecter
+	 * @param cle : Hashcle de l'utilisateur a deconnecter
 	 * @return : un objet JSON qui donne le resultat du service
 	 */
-	public static JSONObject logOut(tools.Cle cle) {
+	public static JSONObject logOut(String cle) {
 		JSONObject json=new JSONObject();
 		try {
 			 Connection c=bd.DataBase.getMySQLConnection();

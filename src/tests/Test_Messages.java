@@ -15,7 +15,7 @@ import com.mongodb.client.MongoDatabase;
 
 import tools.Cle;
 
-class Test_Mongo {
+class Test_Messages{
 
 	@Test
 	void test() {

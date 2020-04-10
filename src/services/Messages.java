@@ -17,18 +17,21 @@ public class Messages {
 	 * @param cle     : cle pour obtenir l'utilisateur et voir si la durée de sa connexion est écoulée
 	 * @return		 
 	 */
-	public static JSONObject ajouter(String message,String nomUtilisateur, Cle cle) {
+	public static JSONObject ajouter(String message,String nomUtilisateur, String cle) {
 		
 		JSONObject json=new JSONObject();
 		Boolean b=tools.Connexion.verifierConnexion(cle);
 		try {
 			if(b)
 			{	MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
-				json=tools.Message.ajouterMessage(message,nomUtilisateur,cle,mongoDb);
+				json=tools.Message.ajouterMessage(message,nomUtilisateur,mongoDb);
 				if((json.getString("OutPut")).compareTo("OK")==0)
 				{
 					return json; // service accepted
 				}
+			}
+			else {
+				json=tools.ErrorJSON.serviceRefused("Service Message", 100000);
 			}
 			
 		} catch (JSONException e) {
@@ -39,7 +42,7 @@ public class Messages {
 				
 	}
 
-	public static JSONObject getListMessages(String nomUtilisateur, Cle cle) {
+	public static JSONObject getListMessages(String nomUtilisateur, String cle) {
 		
 		JSONObject json=new JSONObject();
 		Boolean b=tools.Connexion.verifierConnexion(cle);
@@ -48,16 +51,16 @@ public class Messages {
 			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
-				json=tools.Message.getListMessages(nomUtilisateur,cle,mongoDb);
+				json=tools.Message.getListMessages(nomUtilisateur,mongoDb);
 			}else {
-				json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
+				json=tools.ErrorJSON.serviceRefused("Service Message", 100000);
 			}
 		
 		
 		return json;
 	}
 
-	public static JSONObject supprimer(String idMessage, Cle cle) {
+	public static JSONObject supprimer(String idMessage, String cle) {
 		JSONObject json=new JSONObject();
 		Boolean b=tools.Connexion.verifierConnexion(cle);
 		
@@ -65,17 +68,17 @@ public class Messages {
 			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
-				json=tools.Message.supprimer(idMessage,cle,mongoDb);
+				json=tools.Message.supprimer(idMessage,mongoDb);
 			}
 			else {
-				json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
+				json=tools.ErrorJSON.serviceRefused("Service Message", 100000);
 			}
 		
 		
 		return json;
 	}
 
-	public static JSONObject modifier(String idMessage, String message, Cle cle) {
+	public static JSONObject modifier(String idMessage, String message, String cle) {
 		JSONObject json=new JSONObject();
 	    Boolean b=tools.Connexion.verifierConnexion(cle);
 		
@@ -83,10 +86,10 @@ public class Messages {
 			if(b)
 			{
 				MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
-				json=tools.Message.modifier(idMessage,message,cle,mongoDb);
+				json=tools.Message.modifier(idMessage,message,mongoDb);
 			}
 		else {
-			json=tools.ErrorJSON.serviceRefused("Service Connexion", 1000);
+			json=tools.ErrorJSON.serviceRefused("Service Message", 100000);
 		}
 		
 		return json;

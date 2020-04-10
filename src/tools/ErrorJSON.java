@@ -65,6 +65,18 @@ public class ErrorJSON {
 				e.printStackTrace();
 			}
 		}
+		else if(codeErreur==100000)
+		{
+			String erreur="Type: Connexion expirée";
+			try {
+				json.put("OutPut","KO");
+				json.put("serviceSolicite", message);
+				json.put("Erreur",erreur);
+				json.put("Code Erreur", codeErreur);
+			} catch(JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		else {
 			String erreur="Type: code erreur erroné";
 			try {

@@ -36,9 +36,9 @@ public class Messages extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cleHash=request.getParameter("Cle");
 		String nomUtilisateur=request.getParameter("NomUtilisateur");
-		tools.Cle cle=new tools.Cle(cleHash);
+
 		
-		JSONObject json=services.Messages.getListMessages(nomUtilisateur,cle);
+		JSONObject json=services.Messages.getListMessages(nomUtilisateur,cleHash);
 		
 		response.setContentType("application/json");
 		Writer writer=response.getWriter();
@@ -54,10 +54,7 @@ public class Messages extends HttpServlet {
 		String nomUtilisateur=request.getParameter("NomUtilisateur");
 		String cleHash=request.getParameter("Cle");
 		
-		tools.Cle cle=new tools.Cle();
-		cle.setCle(cleHash);
-		
-		JSONObject json=services.Messages.ajouter(message,nomUtilisateur,cle);
+		JSONObject json=services.Messages.ajouter(message,nomUtilisateur,cleHash);
 	
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
@@ -69,10 +66,8 @@ public class Messages extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String idMessage=request.getParameter("IdMessage");
 		String cleHash=request.getParameter("Cle");
-		tools.Cle cle=new tools.Cle();
-		cle.setCle(cleHash);
 		
-		JSONObject json=services.Messages.supprimer(idMessage,cle);
+		JSONObject json=services.Messages.supprimer(idMessage,cleHash);
 		
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
@@ -86,10 +81,8 @@ public class Messages extends HttpServlet {
 		String message=request.getParameter("Message");
 		String cleHash=request.getParameter("cle");
 		
-		tools.Cle cle=new tools.Cle();
-		cle.setCle(cleHash);
 		
-		JSONObject json=services.Messages.modifier(idMessage,message,cle);
+		JSONObject json=services.Messages.modifier(idMessage,message,cleHash);
 		
 		Writer writer=response.getWriter();
 		writer.append(json.toString());

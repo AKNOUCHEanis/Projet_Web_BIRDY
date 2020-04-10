@@ -22,7 +22,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class Message {
 
-	public static JSONObject ajouterMessage(String message,String nomUtilisateur, Cle cle, MongoDatabase mongoDb) {
+	public static JSONObject ajouterMessage(String message,String nomUtilisateur, MongoDatabase mongoDb) {
 		MongoCollection<Document> coll=mongoDb.getCollection("Messages");
 		Document doc=new Document();
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
@@ -37,7 +37,7 @@ public class Message {
 		
 	}
 
-	public static JSONObject getListMessages(String nomUtilisateur, Cle cle, MongoDatabase mongoDb) {
+	public static JSONObject getListMessages(String nomUtilisateur, MongoDatabase mongoDb) {
 		JSONObject json=new JSONObject();
 		MongoCollection<Document> coll=mongoDb.getCollection("Messages");
 		Document doc=new Document();
@@ -58,7 +58,7 @@ public class Message {
 		
 	}
 
-	public static JSONObject supprimer(String idMessage, Cle cle, MongoDatabase mongoDb) {
+	public static JSONObject supprimer(String idMessage, MongoDatabase mongoDb) {
 		MongoCollection<Document> coll=mongoDb.getCollection("Messages");
 		Document doc=new Document();
 		ObjectId id=new ObjectId(idMessage);
@@ -68,7 +68,7 @@ public class Message {
 		return tools.ErrorJSON.serviceAccepted();
 	}
 
-	public static JSONObject modifier(String idMessage, String message, Cle cle, MongoDatabase mongoDb) {
+	public static JSONObject modifier(String idMessage, String message, MongoDatabase mongoDb) {
 		
 		MongoCollection<Document> coll=mongoDb.getCollection("Messages");
 		Document searchQuery=new Document();

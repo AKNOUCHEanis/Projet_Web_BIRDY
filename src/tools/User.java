@@ -23,11 +23,13 @@ public class User {
 		
 		ResultSet rs=preparedStatement.executeQuery();
 		if (rs.next()) {
-			sql = "INSERT INTO Session (username,h_cle) VALUES(?,?)";
+			sql = "INSERT INTO Session (username,h_cle,date_expiration) VALUES(?,?,?)";
 			preparedStatement =c.prepareStatement(sql);
 			preparedStatement.setString(1, nomUtilisateur);
 			preparedStatement.setString(2, cle.getCle());
+			preparedStatement.setString(3,cle.getDate().toString());
 			preparedStatement.executeUpdate();
+			
 			
 			return tools.ErrorJSON.serviceAccepted();
 		}
@@ -35,10 +37,10 @@ public class User {
 	}
 	
 
-	public static JSONObject desconnect(Cle cle,Connection c) throws SQLException {
+	public static JSONObject desconnect(String cle,Connection c) throws SQLException {
 		String sql = "DELETE FROM Session WHERE h_cle=?";
 		PreparedStatement preparedStatement =c.prepareStatement(sql);
-		preparedStatement.setString(1, cle.getCle());
+		preparedStatement.setString(1, cle);
 		preparedStatement.executeUpdate();
 		return tools.ErrorJSON.serviceAccepted();
 	}

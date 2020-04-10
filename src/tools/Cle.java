@@ -1,12 +1,13 @@
 package tools;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 public class Cle {
 	private String cleHash;
-	private Date date;
+	private LocalDateTime date;
 	
 	/**
 	 * @param cleHash : chaine de caractere (Hashcode)
@@ -15,28 +16,60 @@ public class Cle {
 	public Cle(String nomUtilisateur)
 	{
 		this.cleHash=hash(nomUtilisateur);
-		this.date=new Date(new Date().getTime());
+		
+		this.date=java.time.LocalDateTime.now();
+		this.date=this.date.plusMinutes(30);
 	}
 	
 	public Cle() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String hash(String nomUtilisateur)
+	public String hash(String username)
 	{
-		int x=nomUtilisateur.hashCode();
-		String y=Integer.toString(x);
-		int taille=y.length();
-		char hash[]=new char[32];
-		Random r=new Random();
+		int taille=username.length();
+		String cle="";
+		String x=Integer.toString(taille);
 		int i=0;
-		for(i=0;i<taille;i++) {
-			hash[i]=y.charAt(i);
+		int somme=0;
+		while(i<taille) {
+			
+			somme+=username.codePointAt(i);
+			i++;
+			
 		}
-		for(i=taille;i<32;i++) {
-			hash[i]=(char)(r.nextInt(26)+'A');
+		
+		
+		
+		i=0;
+		for(i=0;i<x.length();i++) {
+			cle=cle+x.charAt(i);
 		}
-		return hash.toString();
+		int t=x.length();
+		int j=0;
+		while(i<32 && j<taille) {
+			cle=cle+username.charAt(j);
+			i++;
+			j++;
+		}
+		
+		while(i<16) {
+			char z=(char) (username.charAt(taille-1)/2+i);
+			cle=cle+z;
+			i++;
+		}
+		while(i<25) {
+			char z=(char)(username.charAt(taille-1)-i+somme/3);
+			cle=cle+z;
+			i++;
+		}
+		while(i<32) {
+			char z=(char)(username.charAt(taille-2)*2+i);
+			cle=cle+z;
+			i++;
+		}
+		
+		return cle;
 	}
 	/**
 	 * @param cle : chaine de caractere (HashCode)
@@ -50,18 +83,13 @@ public class Cle {
 	 * Ajoute à la date une durée d'1 heure
 	 */
 
-	public void setDateAdd()
-	{
-		
-		Date hour= new Date(3600*1000);
-		this.date=new Date (date.getTime()+hour.getTime());
-	}
+
 	/**
 	 * @param date
 	 */
 	public void MAJ_Date()
 	{
-		this.date=new Date(new Date().getTime());
+		this.date=this.date.plusMinutes(30);
 	}
 	
 	/**
@@ -75,8 +103,8 @@ public class Cle {
 	/**
 	 * @return la date de l'action la plus recente de l'utilisateur
 	 */
-	public Date getDate()
+	public LocalDateTime getDate()
 	{
-		return date;
+		return this.date;
 	}
 }

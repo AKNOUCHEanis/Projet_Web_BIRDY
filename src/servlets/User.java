@@ -39,6 +39,7 @@ public class User extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Creation d'un User
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username= request.getParameter("username");
@@ -54,6 +55,11 @@ public class User extends HttpServlet {
 		writer.append(json.toString());
 	}
 	
+	
+	
+	/**
+	 * Suppression d'un User
+	 */
 	protected void doDelete (HttpServletRequest request ,HttpServletResponse response) throws ServletException, IOException {
 		String username= request.getParameter("username");
 		String password=request.getParameter("password");
@@ -63,5 +69,7 @@ public class User extends HttpServlet {
 		Writer writer=response.getWriter();
 		writer.append(json.toString());
 	}
+	
+	
 
 }

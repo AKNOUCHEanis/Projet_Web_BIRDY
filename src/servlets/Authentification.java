@@ -33,10 +33,8 @@ public class Authentification extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String hash=request.getParameter("Cle");
-		Calendar date=(Calendar)request.getAttribute("Date");
-		tools.Cle cle=new tools.Cle(hash);
 		
-		JSONObject json=services.Authentification.logOut(cle);
+		JSONObject json=services.Authentification.logOut(hash);
 		
 		Writer writer= response.getWriter();
 		writer.append(json.toString());

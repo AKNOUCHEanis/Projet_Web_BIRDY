@@ -36,24 +36,31 @@ public class Amis extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Ajouter un ami
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String user=request.getParameter("user");
 		String userToAdd=request.getParameter("userToAdd");
+		String cleHash=request.getParameter("cle");
 		
-		JSONObject json=services.Amis.addFriend(user,userToAdd);
+		JSONObject json=services.Amis.addFriend(user,userToAdd,cleHash);
 		
 		Writer writer= response.getWriter();
 		writer.append(json.toString());
 	}
 	
+	/**
+	 * Supprimer un ami
+	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String user=request.getParameter("user");
 		String userToRemove=request.getParameter("userToRemove");
+		String cleHash=request.getParameter("cle");
 		
-		JSONObject json=services.Amis.removeFriend(user,userToRemove);
+		JSONObject json=services.Amis.removeFriend(user,userToRemove,cleHash);
 		
 		Writer writer= response.getWriter();
 		writer.append(json.toString());
