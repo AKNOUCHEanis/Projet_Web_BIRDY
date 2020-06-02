@@ -26,20 +26,7 @@ public class Authentification extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * effectue le LogOut d'un utilisateur
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String hash=request.getParameter("Cle");
-		
-		JSONObject json=services.Authentification.logOut(hash);
-		
-		Writer writer= response.getWriter();
-		writer.append(json.toString());
-		
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -53,6 +40,21 @@ public class Authentification extends HttpServlet {
 		JSONObject json=services.Authentification.logIn(nomUtilisateur, motDePasse);
 		
 		Writer writer=response.getWriter();
+		writer.append(json.toString());
+		
+	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * effectue le LogOut d'un utilisateur
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String hash=request.getParameter("Cle");
+		
+		JSONObject json=services.Authentification.logOut(hash);
+		
+		Writer writer= response.getWriter();
 		writer.append(json.toString());
 		
 	}

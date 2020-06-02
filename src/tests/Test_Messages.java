@@ -22,10 +22,10 @@ class Test_Messages{
 		MongoDatabase mongoDb=bd.DataBase.getMongoDBConnection();
 		
 		tools.Cle cle=new tools.Cle("hashcode");
-		JSONObject json=tools.Message.ajouterMessage("Texet du Message3", "nomUtilisateur", cle, mongoDb);
+		//JSONObject json=tools.Message.ajouterMessage("Texet du Message3", "nomUtilisateur", mongoDb);
 		//JSONObject json=tools.Message.getListMessages("nomUtilisateur", cle, mongoDb);
 		//JSONObject json=tools.Message.supprimer("5e4f256c02ec0226977a60ec", cle, mongoDb);
-		//JSONObject json=tools.Message.modifier("5e4f37ce99480f773dc7d4e5","Text du Message2", cle, mongoDb);
+		JSONObject json=services.Messages.modifier("5ed69d7db810cb25e470e246"," modifié","13HaceneHaddadiCǺǹǸǷǶǵǴǳǲáâãäåæç");
 		System.out.println(json.toString());
 	}
 
